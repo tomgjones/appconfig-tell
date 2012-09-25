@@ -1,0 +1,13 @@
+Source: appconfig-tell
+Section: perl
+Priority: optional
+Build-Depends: debhelper (>= 7)
+Build-Depends-Indep: perl
+Maintainer: Tom Jones <tom@oxix.org>
+Standards-Version: 3.9.1
+Homepage: http://search.cpan.org/dist/appconfig-tell/
+
+Package: appconfig-tell
+Architecture: all
+Depends: ${misc:Depends}, ${perl:Depends}, libappconfig-perl
+Description: Extract an AppConfig value from config files
