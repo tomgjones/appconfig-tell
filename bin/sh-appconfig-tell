@@ -1,0 +1,50 @@
+#!/usr/bin/perl
+
+=head1 NAME
+
+appconfig-tell - print the value of an AppConfig variable
+
+=head1 SYNOPSIS
+
+    appconfig-tell VAR CF [CF ...]
+
+=head1 DESCRIPTION
+
+Given the name of an AppConfig variable name VAR, and one or more AppConfig
+configuration files, appconfig-tell will print the value of VAR, followed
+by a newline.
+
+This can be useful if a suite mostly written in Perl and using AppConfig
+also has some modules in other languages which need to access the
+same configuration data as the rest of the suite.
+
+Order of configuration files is important.  Last wins.
+see AppConfig(3pm) for details.
+
+Does VAR have to be a single-valued variable?
+
+=head1 SEE ALSO
+
+AppConfig(3pm)
+
+=cut
+
+use feature 'say';
+use strict;
+
+use AppConfig qw(ARGCOUNT_ONE);
+use Pod::Usage qw(pod2usage);
+
+my ($VAR, @CF) = @ARGV;
+
+defined($VAR) or pod2usage(-verbose => 0, -exitval => 64, 
+                           -message => 'missing VAR');
+
+@CF or pod2usage(-verbose => 0, -exitval => 64, 
+                 -message => 'missing CF');
+
+my $conf = AppConfig->new({CREATE => 1, GLOBAL => {ARGCOUNT => ARGCOUNT_ONE}});
+do { $conf->file($_) } for @CF;
+my $answer = $conf->$VAR;
+defined($answer) or exit 1;
+say $answer;
