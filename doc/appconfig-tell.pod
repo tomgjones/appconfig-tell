@@ -1,0 +1,28 @@
+=head1 NAME
+
+appconfig-tell - print the value of an AppConfig variable
+
+=head1 SYNOPSIS
+
+    appconfig-tell VAR CF [CF ...]
+
+=head1 DESCRIPTION
+
+Given the name of an AppConfig variable name VAR, and one or more AppConfig
+configuration files, appconfig-tell will print the value of VAR, followed
+by a newline.
+
+This can be useful if a suite mostly written in Perl and using AppConfig
+also has some modules in other languages which need to access the
+same configuration data as the rest of the suite.
+
+Order of configuration files is important.  Last wins.
+see AppConfig(3pm) for details.
+
+Does VAR have to be a single-valued variable?
+
+=head1 SEE ALSO
+
+AppConfig(3pm)
+
+=cut
